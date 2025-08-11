@@ -1,0 +1,4 @@
+My name is Mykhailo Ivasiuk. 
+I’m from Zarichia, in the Ivano-Frankivsk region of Ukraine. 
+I was born in Ibiza, Spain. 
+I’m a Computer Science student focused on Machine Learning.
