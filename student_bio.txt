@@ -1,4 +1,7 @@
 My name is Mykhailo Ivasiuk. 
-I’m from Zarichia, in the Ivano-Frankivsk region of Ukraine. 
-I was born in Ibiza, Spain. 
-I’m a Computer Science student focused on Machine Learning.
+I am from Zarichia, the Ivano-Frankivsk region of Ukraine. 
+I was born in Ibiza, Spain. My dad is Mykhailo, and my mother is Nadiya.
+I am currently studying at the Ukrainian Catholic University in the Faculty of Applied Sciences, specializing in Computer Science.
+I am passionate about developing problem-solving skills.
+I am currently studying a new field for Machine Learning, which I really enjoy.
+I like going to gym.
