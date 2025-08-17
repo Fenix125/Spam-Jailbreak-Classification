@@ -1,6 +1,6 @@
 from langchain.agents import AgentExecutor, create_tool_calling_agent
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.memory import ConversationBufferWindowMemory
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
 from app.config import settings
 from app.services.classifier import SpamHamClassifier
@@ -32,10 +32,10 @@ def build_agent(debug: bool = False) -> AgentExecutor:
     )
 
     memory = ConversationBufferWindowMemory(
-        k=20, 
-        memory_key="chat_history", 
+        k=20,
+        memory_key="chat_history",
         output_key="output",
-        return_messages=True 
+        return_messages=True
     )
 
     agent = create_tool_calling_agent(llm, tools, prompt)
