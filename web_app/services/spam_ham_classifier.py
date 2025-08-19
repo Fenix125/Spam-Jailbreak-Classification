@@ -1,7 +1,8 @@
 import torch
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, pipeline
+from web_app.base_classes.classifier import Classifier
 
-class SpamHamClassifier:
+class SpamHamClassifier(Classifier):
     def __init__(self, model_path: str) -> None:
         self._device = 0 if torch.cuda.is_available() else -1
         self._tokenizer = AutoTokenizer.from_pretrained(model_path)

@@ -1,8 +1,8 @@
 import sys
 import typer
-from app.logging_conf import configure_logging
+from terminal_app.logging_conf import configure_logging
 from rich.console import Console
-from app.agent.builder import build_agent
+from terminal_app.agent.builder import build_agent
 
 configure_logging()
 
@@ -18,6 +18,7 @@ def chat(debug: bool = typer.Option(False, "--debug", "-v", help="Verbose agent 
     while True:
         prompt = typer.prompt("> ")
         if prompt.strip().lower() == "exit":
+            console.print("[bold green]> : Goodbye! [/bold green]")
             break
 
         res = agent_executor.invoke({"input": prompt})

@@ -9,8 +9,10 @@ RULES:
     in lowercase ("spam" or "ham"), with some extra words saying its a spam or ham
 - If the user asks anything related to Mykhailo Ivasiuk's biography, for example queries like:
     "Who is Mykhailo Ivasiuk?", "Tell me about Mykhailo Ivasiuk", "What does Mykhailo study?",
-    call the "search_info_about_Mykhailo_Ivasiuk" tool to with the given query to fetch his biography details,
-    process them to look more natural and human, and return the result.
+    call the "search_info_about_Mykhailo_Ivasiuk" tool to with the custom query that consists of 
+    keywords from the question to fetch his biography details. Process the result to look more 
+    natural and human, and return it.
 - If the user sends a greeting or small talk (e.g., "hello", "hi"), DO NOT call any tool.
 - If a user asks a general question that doesn't match either tool, provide a neutral response.
 """
+ 

@@ -2,21 +2,21 @@ from langchain.agents import AgentExecutor, create_tool_calling_agent
 from langchain.memory import ConversationBufferWindowMemory
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
-from app.config import settings
-from app.services.classifier import SpamHamClassifier
-from app.services.rag import BioSearch
-from app.services.llm import build_llm
-from app.agent.prompts import SYSTEM_PROMPT
-from app.agent.tools import make_bio_tool, make_classify_tool
+from web_app.config import settings
+from web_app.services.spam_ham_classifier import SpamHamClassifier
+from web_app.services.bio_rag import BioSearch
+from web_app.services.llm import build_llm
+from web_app.agent.prompts import SYSTEM_PROMPT
+from web_app.agent.tools import make_bio_tool, make_classify_tool
 
 def build_agent(debug: bool = False) -> AgentExecutor:
     classifier = SpamHamClassifier(settings.classifier_model)
-    bio = BioSearch(
+    bio_search = BioSearch(
         file_path=settings.file_path,
         embed_model_path=settings.embed_model
     )
-    tools = [make_classify_tool(classifier), make_bio_tool(bio)]
-
+    tools = [make_classify_tool(classifier), make_bio_tool(bio_search)]
+ 
     llm = build_llm(
         model=settings.openai_model,
         api_key=settings.openai_api_key,

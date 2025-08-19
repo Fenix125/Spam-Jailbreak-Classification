@@ -1,8 +1,9 @@
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, Settings
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.core.node_parser import SentenceSplitter
+from terminal_app.base_classes.rag import DocumentSearch
 
-class BioSearch:
+class BioSearch(DocumentSearch):
     def __init__(self, file_path: str, embed_model_path: str, chunk_size: int = 300, chunk_overlap: int = 40, top_k: int = 5) -> None:
         Settings.embed_model = HuggingFaceEmbedding(embed_model_path)
         Settings.node_parser = SentenceSplitter(
