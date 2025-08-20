@@ -1,9 +1,7 @@
+import httpx
+
 from pydantic import BaseModel, Field
 from langchain.tools import tool
-
-
-from web_app.base_classes.classifier import Classifier
-from web_app.base_classes.rag import DocumentSearch
 
 
 class ClassifyArgs(BaseModel):
@@ -13,21 +11,27 @@ class SearchInfoArgs(BaseModel):
     query: str = Field(description="Customized query consisting of keywords from the info question about Mykhailo Ivasiuk")
 
 
-def make_classify_tool(classifier: Classifier):
+def make_classify_tool(base_url):
     @tool("classify_spam_ham", args_schema=ClassifyArgs) 
     def classify_spam_ham(text: str) -> str:
         """
         Classifies the given message as "spam" or "ham".
         """
-        return classifier.classify(text)
+        r = httpx.post(f"{base_url}/spam_ham_classifier", params={"text": text})
+        r.raise_for_status()
+        return r.json()
+
     return classify_spam_ham
 
-def make_bio_tool(searcher: DocumentSearch):
+def make_bio_tool(base_url):
     @tool("search_info_about_Mykhailo_Ivasiuk", args_schema=SearchInfoArgs)
     def search_info(query: str) -> str:
         """
         Searches for the biography of Mykhailo Ivasiuk and returns relevant text.
         Returns empty string if nothing found.
         """
-        return searcher.search(query)
+        r = httpx.post(f"{base_url}/bio_search", params={"query": query})
+        r.raise_for_status()
+        return r.json()
+    
     return search_info

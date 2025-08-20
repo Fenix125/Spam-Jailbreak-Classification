@@ -9,5 +9,6 @@ class AppConfig():
         self.classifier_model = getenv("CLASSIFIER_MODEL")
         self.embed_model = getenv("EMBED_MODEL")
         self.file_path = getenv("FILE_PATH")
+        self.base_url = getenv("BASE_URL")
 
 settings = AppConfig()

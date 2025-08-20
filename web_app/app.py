@@ -21,8 +21,8 @@ app = FastAPI()
 @app.post("/agent/")
 def agent(prompt: str):
     res = agent_executor.invoke({"input": prompt})
-
     return res["output"]
+
 
 @app.post("/spam_ham_classifier")
 def spam_ham_classifier(text: str):
@@ -32,4 +32,3 @@ def spam_ham_classifier(text: str):
 @app.post("/bio_search")
 def bio_search(query: str):
     return bio_searcher.search(query)
-
