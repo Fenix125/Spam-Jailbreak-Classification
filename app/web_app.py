@@ -1,9 +1,9 @@
 from fastapi import FastAPI
-from web_app.logging_conf import configure_logging
-from web_app.agent.builder import build_agent
-from web_app.services.spam_ham_classifier import SpamHamClassifier
-from web_app.services.bio_rag import BioSearch
-from web_app.config import settings
+from app.logging_conf import configure_logging
+from app.agent.builder import build_agent
+from app.services.spam_ham_classifier import SpamHamClassifier
+from app.services.bio_rag import BioSearch
+from app.config import settings
 
 configure_logging()
 
@@ -13,7 +13,8 @@ agent_executor = build_agent()
 classifier = SpamHamClassifier(settings.classifier_model)
 bio_searcher = BioSearch(
     file_path=settings.file_path,
-    embed_model_path=settings.embed_model
+    embed_model_path=settings.embed_model,
+    open_api_key=settings.openai_api_key
 )
 
 app = FastAPI()

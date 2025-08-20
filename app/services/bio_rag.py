@@ -1,11 +1,14 @@
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, Settings
-from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+from langchain_openai import OpenAIEmbeddings
 from llama_index.core.node_parser import SentenceSplitter
-from terminal_app.base_classes.rag import DocumentSearch
+from app.base_classes.rag import DocumentSearch
 
 class BioSearch(DocumentSearch):
-    def __init__(self, file_path: str, embed_model_path: str, chunk_size: int = 300, chunk_overlap: int = 40, top_k: int = 5) -> None:
-        Settings.embed_model = HuggingFaceEmbedding(embed_model_path)
+    def __init__(self, file_path: str, embed_model_path: str, open_api_key:str, chunk_size: int = 300, chunk_overlap: int = 40, top_k: int = 5) -> None:
+        Settings.embed_model = OpenAIEmbeddings(
+            model=embed_model_path,
+            api_key=open_api_key
+        )
         Settings.node_parser = SentenceSplitter(
             chunk_size=chunk_size, chunk_overlap=chunk_overlap
         )
@@ -18,3 +21,4 @@ class BioSearch(DocumentSearch):
         if not nodes:
             return "No information found"
         return "\n\n".join(n.node.get_content() for n in nodes)
+ 

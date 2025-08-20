@@ -1,6 +1,6 @@
 import torch
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, pipeline
-from web_app.base_classes.classifier import Classifier
+from app.base_classes.classifier import Classifier
 
 class SpamHamClassifier(Classifier):
     def __init__(self, model_path: str) -> None:

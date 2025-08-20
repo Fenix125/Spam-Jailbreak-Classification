@@ -11,7 +11,7 @@ class SearchInfoArgs(BaseModel):
     query: str = Field(description="Customized query consisting of keywords from the info question about Mykhailo Ivasiuk")
 
 
-def make_classify_tool(base_url):
+def make_classify_tool_https(base_url):
     @tool("classify_spam_ham", args_schema=ClassifyArgs) 
     def classify_spam_ham(text: str) -> str:
         """
@@ -23,7 +23,7 @@ def make_classify_tool(base_url):
 
     return classify_spam_ham
 
-def make_bio_tool(base_url):
+def make_bio_tool_https(base_url):
     @tool("search_info_about_Mykhailo_Ivasiuk", args_schema=SearchInfoArgs)
     def search_info(query: str) -> str:
         """

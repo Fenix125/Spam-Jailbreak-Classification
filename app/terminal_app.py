@@ -1,8 +1,8 @@
 import sys
 import typer
-from terminal_app.logging_conf import configure_logging
+from app.logging_conf import configure_logging
 from rich.console import Console
-from terminal_app.agent.builder import build_agent
+from app.agent.builder import build_agent
 
 configure_logging()
 
@@ -24,5 +24,3 @@ def chat(debug: bool = typer.Option(False, "--debug", "-v", help="Verbose agent 
         res = agent_executor.invoke({"input": prompt})
 
         console.print(f"[bold green]> : {res["output"]} [/bold green]")
-if __name__ == "__main__":
-    cli()
