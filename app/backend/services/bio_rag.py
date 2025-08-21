@@ -1,10 +1,10 @@
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, Settings
 from langchain_openai import OpenAIEmbeddings
 from llama_index.core.node_parser import SentenceSplitter
-from app.base_classes.rag import DocumentSearch
+from app.backend.base_classes.rag import DocumentSearch
 
 class BioSearch(DocumentSearch):
-    def __init__(self, file_path: str, embed_model_path: str, open_api_key:str, chunk_size: int = 300, chunk_overlap: int = 40, top_k: int = 5) -> None:
+    def __init__(self, file_path: str, embed_model_path: str, open_api_key:str, chunk_size: int = 60, chunk_overlap: int = 10, top_k: int = 3) -> None:
         Settings.embed_model = OpenAIEmbeddings(
             model=embed_model_path,
             api_key=open_api_key

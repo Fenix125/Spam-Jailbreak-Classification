@@ -1,9 +1,10 @@
 from fastapi import FastAPI
-from app.logging_conf import configure_logging
-from app.agent.builder import build_agent
-from app.services.spam_ham_classifier import SpamHamClassifier
-from app.services.bio_rag import BioSearch
-from app.config import settings
+from fastapi.middleware.cors import CORSMiddleware
+from app.backend.logging_conf import configure_logging
+from app.backend.agent.builder import build_agent
+from app.backend.services.spam_ham_classifier import SpamHamClassifier
+from app.backend.services.bio_rag import BioSearch
+from app.backend.config import settings
 
 configure_logging()
 
@@ -19,7 +20,19 @@ bio_searcher = BioSearch(
 
 app = FastAPI()
 
-@app.post("/agent/")
+
+#origins = [settings.base_url]
+origins = ["http://localhost:8001"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.post("/agent")
 def agent(prompt: str):
     res = agent_executor.invoke({"input": prompt})
     return res["output"]

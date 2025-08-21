@@ -1,13 +1,13 @@
 from langchain.agents import AgentExecutor, create_tool_calling_agent
 from langchain.memory import ConversationBufferWindowMemory
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from app.services.spam_ham_classifier import SpamHamClassifier
-from app.services.bio_rag import BioSearch
-from app.config import settings
-from app.services.llm import build_llm
-from app.agent.prompts import SYSTEM_PROMPT
-from app.agent.tools import make_bio_tool, make_classify_tool
-from app.agent.tools_https import make_bio_tool_https, make_classify_tool_https
+from app.backend.services.spam_ham_classifier import SpamHamClassifier
+from app.backend.services.bio_rag import BioSearch
+from app.backend.config import settings
+from app.backend.services.llm import build_llm
+from app.backend.agent.prompts import SYSTEM_PROMPT
+from app.backend.agent.tools import make_bio_tool, make_classify_tool
+from app.backend.agent.tools_https import make_bio_tool_https, make_classify_tool_https
 
 def build_agent(debug: bool = False) -> AgentExecutor:
     if settings.run_mode == "cli":

@@ -1,8 +1,8 @@
 import sys
 import typer
-from app.logging_conf import configure_logging
+from app.backend.logging_conf import configure_logging
+from app.backend.agent.builder import build_agent
 from rich.console import Console
-from app.agent.builder import build_agent
 
 configure_logging()
 

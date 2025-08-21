@@ -2,8 +2,8 @@ from pydantic import BaseModel, Field
 from langchain.tools import tool
 
 
-from terminal_app.base_classes.classifier import Classifier
-from terminal_app.base_classes.rag import DocumentSearch
+from app.backend.base_classes.classifier import Classifier
+from app.backend.base_classes.rag import DocumentSearch
 
 
 class ClassifyArgs(BaseModel):
