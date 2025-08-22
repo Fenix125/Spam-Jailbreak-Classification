@@ -5,8 +5,8 @@ def main():
         import uvicorn
         uvicorn.run(
             "app.backend.web_app:app",
-            host="0.0.0.0",
-            port=8000
+            host=settings.backend_host,
+            port=int(settings.backend_port)
         )
     elif settings.run_mode == "cli":
         from app.backend.terminal_app import cli

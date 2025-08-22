@@ -21,8 +21,7 @@ bio_searcher = BioSearch(
 app = FastAPI()
 
 
-#origins = [settings.base_url]
-origins = ["http://localhost:8001"]
+origins = [settings.frontend_adress]
 
 app.add_middleware(
     CORSMiddleware,

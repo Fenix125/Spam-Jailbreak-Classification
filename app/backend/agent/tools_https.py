@@ -11,26 +11,26 @@ class SearchInfoArgs(BaseModel):
     query: str = Field(description="Customized query consisting of keywords from the info question about Mykhailo Ivasiuk")
 
 
-def make_classify_tool_https(base_url):
+def make_classify_tool_https(backend_adress):
     @tool("classify_spam_ham", args_schema=ClassifyArgs) 
     def classify_spam_ham(text: str) -> str:
         """
         Classifies the given message as "spam" or "ham".
         """
-        r = httpx.post(f"{base_url}/spam_ham_classifier", params={"text": text})
+        r = httpx.post(f"{backend_adress}/spam_ham_classifier", params={"text": text})
         r.raise_for_status()
         return r.json()
 
     return classify_spam_ham
 
-def make_bio_tool_https(base_url):
+def make_bio_tool_https(backend_adress):
     @tool("search_info_about_Mykhailo_Ivasiuk", args_schema=SearchInfoArgs)
     def search_info(query: str) -> str:
         """
         Searches for the biography of Mykhailo Ivasiuk and returns relevant text.
         Returns empty string if nothing found.
         """
-        r = httpx.post(f"{base_url}/bio_search", params={"query": query})
+        r = httpx.post(f"{backend_adress}/bio_search", params={"query": query})
         r.raise_for_status()
         return r.json()
     

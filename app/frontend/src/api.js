@@ -1,8 +1,9 @@
 import axios from "axios";
 
-const baseUrl = import.meta.env.APP_BASE_URL;
+const backend_host = import.meta.env.APP_BACKEND_HOST;
+const backend_port = import.meta.env.APP_BACKEND_PORT;
 const api = axios.create({
-    baseURL: baseUrl,
+    baseURL: `http://${backend_host}:${backend_port}`,
 });
 
 export async function sendAgentPrompt(prompt) {

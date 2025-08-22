@@ -9,7 +9,15 @@ class AppConfig():
         self.classifier_model = getenv("CLASSIFIER_MODEL")
         self.embed_model = getenv("EMBED_MODEL")
         self.file_path = getenv("FILE_PATH")
-        self.base_url = getenv("APP_BASE_URL")
+        self.backend_host = getenv("APP_BACKEND_HOST")
+        self.backend_port = getenv("APP_BACKEND_PORT")
+
+        self.frontend_host = getenv("APP_FRONTEND_HOST")
+        self.frontend_port = getenv("APP_FRONTEND_PORT")
+
+        self.backend_adress = f"http://{self.backend_host}:{self.backend_port}"
+        self.frontend_adress = f"http://{self.frontend_host}:{self.frontend_port}"
+
         self.run_mode = getenv("RUN_MODE")
 
 settings = AppConfig()

@@ -19,7 +19,7 @@ def build_agent(debug: bool = False) -> AgentExecutor:
         )
         tools = [make_classify_tool(classifier), make_bio_tool(bio_search)]
     else:
-        tools = [make_classify_tool_https(settings.base_url), make_bio_tool_https(settings.base_url)]
+        tools = [make_classify_tool_https(settings.backend_adress), make_bio_tool_https(settings.backend_adress)]
  
     llm = build_llm(
         model=settings.openai_model,
