@@ -1,0 +1,27 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: app/backend/Dockerfile
+    container_name: backend
+    env_file: .env
+    environment:
+      APP_BACKEND_HOST: 0.0.0.0
+      APP_BACKEND_PORT: 8000
+    ports:
+      - "${APP_BACKEND_PORT}:8000"
+    volumes:
+      - ./data:/workspace/data
+
+  frontend:
+    build:
+      context: .
+      dockerfile: app/frontend/Dockerfile
+    container_name: frontend
+    env_file: .env
+    environment:
+      APP_FRONTEND_HOST: 0.0.0.0
+      APP_FRONTEND_PORT: 5173
+    ports:
+      - "${APP_FRONTEND_PORT}:5173"
+    depends_on: [backend]
