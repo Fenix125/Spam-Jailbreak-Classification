@@ -20,4 +20,6 @@ class AppConfig():
 
         self.run_mode = getenv("RUN_MODE")
 
+        self.telegram_bot_token = getenv("TELEGRAM_BOT_TOKEN")
+
 settings = AppConfig()

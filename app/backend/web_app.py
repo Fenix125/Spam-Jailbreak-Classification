@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi_mcp import FastApiMCP
 from fastapi.middleware.cors import CORSMiddleware
 from app.backend.logging_conf import configure_logging
 from app.backend.agent.builder import build_agent
@@ -31,7 +32,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.post("/agent")
+@app.post("/agent", operation_id="get_agent")
 def agent(prompt: str):
     res = agent_executor.invoke({"input": prompt})
     return res["output"]
@@ -45,3 +46,10 @@ def spam_ham_classifier(text: str):
 @app.post("/bio_search")
 def bio_search(query: str):
     return bio_searcher.search(query)
+
+mcp = FastApiMCP(
+    app,
+    include_operations=["get_agent"]
+)
+
+mcp.mount()
