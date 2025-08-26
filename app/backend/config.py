@@ -15,7 +15,7 @@ class AppConfig():
         self.frontend_host = getenv("APP_FRONTEND_HOST")
         self.frontend_port = getenv("APP_FRONTEND_PORT")
 
-        self.backend_adress = f"http://{self.backend_host}:{self.backend_port}"
+        self.backend_adress = f"http://{self.backend_host}:{self.backend_port}/api"
         self.frontend_adress = f"http://{self.frontend_host}:{self.frontend_port}"
 
         self.run_mode = getenv("RUN_MODE")

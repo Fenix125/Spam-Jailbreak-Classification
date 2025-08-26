@@ -1,6 +1,6 @@
-from fastapi import FastAPI
-from fastapi_mcp import FastApiMCP
+from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
+from fastmcp import FastMCP
 from app.backend.logging_conf import configure_logging
 from app.backend.agent.builder import build_agent
 from app.backend.services.spam_ham_classifier import SpamHamClassifier
@@ -19,7 +19,9 @@ bio_searcher = BioSearch(
     open_api_key=settings.openai_api_key
 )
 
-app = FastAPI()
+app = FastAPI(title="SpamHamClassifierAPI")
+
+api = APIRouter(prefix="/api")
 
 
 origins = [settings.frontend_adress]
@@ -32,24 +34,35 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.post("/agent", operation_id="get_agent")
+@api.post("/agent", operation_id="call_agent")
 def agent(prompt: str):
     res = agent_executor.invoke({"input": prompt})
     return res["output"]
 
 
-@app.post("/spam_ham_classifier")
+@api.post("/spam_ham_classifier", 
+            operation_id="classify_text",
+            summary="Classify text as spam or ham",
+            description="Returns 'spam' or 'ham' for the given text.",
+            tags=["mcp"])
 def spam_ham_classifier(text: str):
     return classifier.classify(text)
 
 
-@app.post("/bio_search")
+@api.post("/bio_search",
+            operation_id="search_bio",
+            summary="Search in Mykhailo Ivasiuk biography corpus",
+            description="Returns the top relevant passages for the query.",
+            tags=["mcp"])
 def bio_search(query: str):
     return bio_searcher.search(query)
 
-mcp = FastApiMCP(
-    app,
-    include_operations=["get_agent"]
-)
 
-mcp.mount()
+app.include_router(api)
+
+mcp = FastMCP.from_fastapi(app=app, name="SpamHamClassifier-MCP")
+mcp_app = mcp.http_app(path="/mcp")
+
+app.router.lifespan_context = mcp_app.lifespan
+
+app.mount("/external", mcp_app)
