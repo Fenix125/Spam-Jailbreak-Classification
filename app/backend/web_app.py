@@ -6,6 +6,8 @@ from app.backend.agent.builder import build_agent
 from app.backend.services.spam_ham_classifier import SpamHamClassifier
 from app.backend.services.bio_rag import BioSearch
 from app.backend.config import settings
+from app.backend.base_classes.request_models import AgentIn, SpamIn, BioIn
+from app.backend.base_classes.response_models import AgentOut, SpamOut, BioOut
 
 configure_logging()
 
@@ -34,28 +36,32 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@api.post("/agent", operation_id="call_agent")
-def agent(prompt: str):
-    res = agent_executor.invoke({"input": prompt})
-    return res["output"]
+@api.post("/agent", operation_id="call_agent", response_model=AgentOut)
+def agent(req: AgentIn):
+    res = agent_executor.invoke({"input": req.prompt})
+    return AgentOut(output=res["output"])
 
 
 @api.post("/spam_ham_classifier", 
             operation_id="classify_text",
             summary="Classify text as spam or ham",
             description="Returns 'spam' or 'ham' for the given text.",
-            tags=["mcp"])
-def spam_ham_classifier(text: str):
-    return classifier.classify(text)
+            tags=["mcp"],
+            response_model=SpamOut)
+def spam_ham_classifier(req: SpamIn):
+    label = classifier.classify(req.text)
+    return SpamOut(label=label)
 
 
 @api.post("/bio_search",
             operation_id="search_bio",
             summary="Search in Mykhailo Ivasiuk biography corpus",
             description="Returns the top relevant passages for the query.",
-            tags=["mcp"])
-def bio_search(query: str):
-    return bio_searcher.search(query)
+            tags=["mcp"],
+            response_model=BioOut)
+def bio_search(req: BioIn):
+    result = bio_searcher.search(req.query)
+    return BioOut(result=result)
 
 
 app.include_router(api)

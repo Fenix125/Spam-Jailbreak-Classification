@@ -20,10 +20,10 @@ async def call_agent(prompt: str) -> str:
     POST the user's prompt to your FastAPI /api/agent endpoint.
     """
     async with httpx.AsyncClient(timeout=30.0) as client:
-        resp = await client.post(AGENT_URL, params={"prompt": prompt})
-        resp.raise_for_status()
-        return resp.json()
-
+        r = await client.post(AGENT_URL, json={"prompt": prompt})
+        r.raise_for_status()
+        data = r.json()
+        return data["output"]
 
 async def on_post_init(app: Application) -> None:
     me = await app.bot.get_me()

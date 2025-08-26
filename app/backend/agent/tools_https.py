@@ -1,5 +1,4 @@
 import httpx
-
 from pydantic import BaseModel, Field
 from langchain.tools import tool
 
@@ -17,10 +16,10 @@ def make_classify_tool_https(backend_adress):
         """
         Classifies the given message as "spam" or "ham".
         """
-        r = httpx.post(f"{backend_adress}/spam_ham_classifier", params={"text": text})
+        r = httpx.post(f"{backend_adress}/spam_ham_classifier", json={"text": text})
         r.raise_for_status()
-        return r.json()
-
+        data = r.json()
+        return data["label"]
     return classify_spam_ham
 
 def make_bio_tool_https(backend_adress):
@@ -30,8 +29,9 @@ def make_bio_tool_https(backend_adress):
         Searches for the biography of Mykhailo Ivasiuk and returns relevant text.
         Returns empty string if nothing found.
         """
-        r = httpx.post(f"{backend_adress}/bio_search", params={"query": query})
+        r = httpx.post(f"{backend_adress}/bio_search", json={"query": query})
         r.raise_for_status()
-        return r.json()
+        data = r.json()
+        return data["result"]
     
     return search_info
