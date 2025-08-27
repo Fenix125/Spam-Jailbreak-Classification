@@ -39,7 +39,9 @@ app.add_middleware(
 
 @api.post("/agent", operation_id="call_agent", response_model=AgentOut)
 def agent(req: AgentIn):
-    res = agent_executor.invoke({"input": req.prompt})
+    session = req.session_id or "default"
+    res = agent_executor.invoke({"input": req.prompt},
+                                config={"configurable": {"session_id": session}})
     return AgentOut(output=res["output"])
 
 

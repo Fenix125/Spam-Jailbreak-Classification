@@ -7,10 +7,24 @@ const api = axios.create({
     timeout: 30000,
 });
 
+function getSessionId() {
+    const key = "agent_session_id";
+    let sid = sessionStorage.getItem(key);
+    if (!sid) {
+        sid =
+            typeof crypto !== "undefined" && crypto.randomUUID
+                ? crypto.randomUUID()
+                : String(Date.now());
+        sessionStorage.setItem(key, sid);
+    }
+    return sid;
+}
+
 export async function sendAgentPrompt(prompt) {
+    const session_id = getSessionId();
     const res = await api.post(
         "/agent",
-        { prompt },
+        { prompt, session_id },
         {
             headers: { "Content-Type": "application/json" },
         }

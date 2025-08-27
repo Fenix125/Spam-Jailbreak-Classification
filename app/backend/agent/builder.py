@@ -1,6 +1,8 @@
+from typing import Dict
 from langchain.agents import AgentExecutor, create_tool_calling_agent
-from langchain.memory import ConversationBufferWindowMemory
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.chat_history import InMemoryChatMessageHistory, BaseChatMessageHistory
+from langchain_core.runnables.history import RunnableWithMessageHistory
 from app.backend.services.spam_ham_classifier import SpamHamClassifier
 from app.backend.services.bio_rag import BioSearch
 from app.backend.config import settings
@@ -9,7 +11,16 @@ from app.backend.agent.prompts import SYSTEM_PROMPT
 from app.backend.agent.tools import make_bio_tool, make_classify_tool
 from app.backend.agent.tools_https import make_bio_tool_https, make_classify_tool_https
 
-def build_agent(debug: bool = False) -> AgentExecutor:
+
+HISTORY_STORE: Dict[str, BaseChatMessageHistory] = {}
+
+def get_history(session_id: str) -> BaseChatMessageHistory:
+    if session_id not in HISTORY_STORE:
+        HISTORY_STORE[session_id] = InMemoryChatMessageHistory()
+    return HISTORY_STORE[session_id]
+
+
+def build_agent(debug: bool = False) -> RunnableWithMessageHistory:
     if settings.run_mode == "cli":
         classifier = SpamHamClassifier(settings.classifier_model)
         bio_search = BioSearch(
@@ -34,21 +45,20 @@ def build_agent(debug: bool = False) -> AgentExecutor:
             MessagesPlaceholder("agent_scratchpad"),
         ]
     )
-
-    memory = ConversationBufferWindowMemory(
-        k=20,
-        memory_key="chat_history",
-        output_key="output",
-        return_messages=True
-    )
-
     agent = create_tool_calling_agent(llm, tools, prompt)
+
     agent_executor = AgentExecutor(
         agent=agent,
         tools=tools,
-        memory=memory,
         verbose=debug,
-        memory_key="chat_history",
         return_intermediate_steps=True,
     )
-    return agent_executor
+    agent_executor_history = RunnableWithMessageHistory(
+        agent_executor,
+        get_history,
+        input_messages_key="input",
+        history_messages_key="chat_history",
+        output_messages_key="output"
+    )
+
+    return agent_executor_history

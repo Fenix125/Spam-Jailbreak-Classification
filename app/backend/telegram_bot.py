@@ -15,12 +15,12 @@ from app.backend.config import settings
 AGENT_URL = f"{settings.backend_adress}/agent"
 
 
-async def call_agent(prompt: str) -> str:
+async def call_agent(prompt: str, session_id: str) -> str:
     """
     POST the user's prompt to your FastAPI /api/agent endpoint.
     """
     async with httpx.AsyncClient(timeout=30.0) as client:
-        r = await client.post(AGENT_URL, json={"prompt": prompt})
+        r = await client.post(AGENT_URL,  json={"prompt": prompt, "session_id": session_id})
         r.raise_for_status()
         data = r.json()
         return data["output"]
@@ -46,9 +46,11 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
 
     print(f"[IN  ] from @{getattr(user, 'username', None)}({user.id}) "
           f"chat={chat.id}: {text}")
+    
+    session_id = f"tg:chat:{chat.id}"
 
     try:
-        reply = await call_agent(text)
+        reply = await call_agent(text, session_id)
     except httpx.HTTPStatusError as e:
         reply = f"Backend HTTP {e.response.status_code}"
         print(f"[ERR ] HTTPStatusError: {e} | body={e.response.text!r}")
