@@ -1,6 +1,7 @@
 from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from fastmcp import FastMCP
+from fastmcp.server.openapi import RouteMap, MCPType
 from app.backend.logging_conf import configure_logging
 from app.backend.agent.builder import build_agent
 from app.backend.services.spam_ham_classifier import SpamHamClassifier
@@ -66,7 +67,14 @@ def bio_search(req: BioIn):
 
 app.include_router(api)
 
-mcp = FastMCP.from_fastapi(app=app, name="SpamHamClassifier-MCP")
+mcp = FastMCP.from_fastapi(
+    app=app,
+    name="SpamHamClassifier-MCP",
+    route_maps=[
+        RouteMap(tags={"mcp"}, mcp_type=MCPType.TOOL),
+        RouteMap(mcp_type=MCPType.EXCLUDE),
+    ],
+)
 mcp_app = mcp.http_app(path="/mcp")
 
 app.router.lifespan_context = mcp_app.lifespan
