@@ -2,11 +2,11 @@ from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from fastmcp import FastMCP
 from fastmcp.server.openapi import RouteMap, MCPType
-from app.backend.logging_conf import configure_logging
+from app.backend.settings.logging_conf import configure_logging
 from app.backend.agent.builder import build_agent
 from app.backend.services.spam_ham_classifier import SpamHamClassifier
 from app.backend.services.bio_rag import BioSearch
-from app.backend.config import settings
+from app.backend.settings.config import settings
 from app.backend.base_classes.request_models import AgentIn, SpamIn, BioIn
 from app.backend.base_classes.response_models import AgentOut, SpamOut, BioOut
 

@@ -1,4 +1,4 @@
-from app.backend.config import settings
+from app.backend.settings.config import settings
 
 def main():
     if settings.run_mode == "web":

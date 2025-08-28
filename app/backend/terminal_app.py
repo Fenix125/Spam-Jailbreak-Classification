@@ -1,7 +1,7 @@
 import sys
 import uuid
 import typer
-from app.backend.logging_conf import configure_logging
+from app.backend.settings.logging_conf import configure_logging
 from app.backend.agent.builder import build_agent
 from rich.console import Console
 

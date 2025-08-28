@@ -1,7 +1,7 @@
 import gradio as gr
 import uuid
 import requests
-from app.backend.config import settings
+from app.backend.settings.config import settings
 
 URL = settings.backend_adress + "/agent"
 session_state = gr.State() 

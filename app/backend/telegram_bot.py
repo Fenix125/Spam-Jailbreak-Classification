@@ -10,7 +10,7 @@ from telegram.ext import (
     MessageHandler,
     filters,
 )
-from app.backend.config import settings
+from app.backend.settings.config import settings
 
 AGENT_URL = f"{settings.backend_adress}/agent"
 

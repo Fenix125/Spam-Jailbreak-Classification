@@ -5,7 +5,7 @@ from langchain_core.chat_history import InMemoryChatMessageHistory, BaseChatMess
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from app.backend.services.spam_ham_classifier import SpamHamClassifier
 from app.backend.services.bio_rag import BioSearch
-from app.backend.config import settings
+from app.backend.settings.config import settings
 from app.backend.services.llm import build_llm
 from app.backend.agent.prompts import SYSTEM_PROMPT
 from app.backend.agent.tools import make_bio_tool, make_classify_tool
