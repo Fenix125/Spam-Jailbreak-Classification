@@ -1,4 +1,4 @@
-![Logo of the project](https://github.com/Fenix125/Spam-Jailbreak-Classification/tree/main/app/frontend/src/assets/robot_classifier_image.png)
+![Logo of the project](app/frontend/src/assets/robot_classifier_image.png)
 
 # Name of the project
 
