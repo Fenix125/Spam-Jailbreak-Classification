@@ -1,4 +1,4 @@
-![Logo of the project](app/frontend/src/assets/robot_classifier_img2.png)
+![Logo of the project](app/frontend/src/assets/robot_classifier_img_2.png)
 
 # Spam/Jailbreak Classification
 
