@@ -40,9 +40,9 @@ The agent also has memory, allowing it to remember previous conversations. Moreo
 
 I used the [FastAPI](https://fastapi.tiangolo.com) framework to create a microservice architecture with the following endpoints:
 
--   **`/api/agent**`\*\*: uses the LangChain agent
--   **`**/api/spam_ham_classifier**`**: uses the spam/ham classifier to classify text
--   **`**/api/bio_search**`**: returns relevant information about Mykhailo Ivasiuk's biography.
+-   **`/api/agent`**: uses the LangChain agent
+-   **`/api/spam_ham_classifier`**: uses the spam/ham classifier to classify text
+-   **`/api/bio_search`**: returns relevant information about Mykhailo Ivasiuk's biography.
 
 Additionally, there is an **`/external/mcp`** endpoint available for MCP tools.
 
@@ -62,17 +62,17 @@ The easiest way to run the project locally is via the provided Makefile or docke
 
 ### Initial Configuration
 
-The .env.example file shows the required variables, including:
+The `.env.example` file shows the required variables, including:
 
--   OPENAI_API_KEY: a key from [OpenAI developer platform](https://platform.openai.com/docs/overview) used to access OpenAI models.
--   OPENAI_MODEL: Chat model name (**default**: `gpt-4o-mini`)
--   CLASSIFIER_MODEL: HuggingFace path for the classifier model (**default:**: my pretrained `spam-ham-classifier`)
--   EMBED_MODEL: Name of the OpenAI embedding model used for RAG (**default**: `text-embedding-ada-002`)
--   FILE_PATH: Path to the text corpus (**default**: `data/student_bio.txt`)
--   APP_BACKEND_HOST/APP_BACKEND_PORT: Network address for the backend server, you can keep them by default
--   APP_FRONTEND_HOST/APP_FRONTEND_PORT: Network address for the React front‑end, you can keep them by default
--   RUN_MODE: Set to `web`(default) to start the HTTP server or `cli` to run in the command line
--   TELEGRAM_BOT_TOKEN: Token for the Telegram bot (optional)
+-   `OPENAI_API_KEY`: a key from [OpenAI developer platform](https://platform.openai.com/docs/overview) used to access OpenAI models.
+-   `OPENAI_MODEL`: Chat model name (**default**: `gpt-4o-mini`)
+-   `CLASSIFIER_MODEL`: HuggingFace path for the classifier model (**default:**: my pretrained `spam-ham-classifier`)
+-   `EMBED_MODEL`: Name of the OpenAI embedding model used for RAG (**default**: `text-embedding-ada-002`)
+-   `FILE_PATH`: Path to the text corpus (**default**: `data/student_bio.txt`)
+-   `APP_BACKEND_HOST/APP_BACKEND_PORT`: Network address for the backend server, you can keep them by default
+-   `APP_FRONTEND_HOST/APP_FRONTEND_PORT`: Network address for the React front‑end, you can keep them by default
+-   `RUN_MODE`: Set to `web`(default) to start the HTTP server or `cli` to run in the command line
+-   `TELEGRAM_BOT_TOKEN`: Token for the Telegram bot (optional)
 
 ### Clone the repository
 
