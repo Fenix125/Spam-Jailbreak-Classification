@@ -31,8 +31,8 @@ Preprocessing steps included the removal of duplicate and null values. The merge
 
 Using the [LangChain](https://www.langchain.com) framework, I built an agent with two tools:
 
-1. `**classify_spam_ham**`: a tool that uses the trained BERT model to classify text as spam or ham.
-2. `**search_info_about_Mykhailo_Ivasiuk**`: a Retrieval-Augmented Generation (RAG) tool that retrieves biographical information about Mykhailo Ivasiuk from a provided document.
+1. **`classify_spam_ham`**: a tool that uses the trained BERT model to classify text as spam or ham.
+2. **`search_info_about_Mykhailo_Ivasiuk`**: a Retrieval-Augmented Generation (RAG) tool that retrieves biographical information about Mykhailo Ivasiuk from a provided document.
 
 The agent also has memory, allowing it to remember previous conversations. Moreover it is accessible as a terminal application.
 
@@ -40,15 +40,15 @@ The agent also has memory, allowing it to remember previous conversations. Moreo
 
 I used the [FastAPI](https://fastapi.tiangolo.com) framework to create a microservice architecture with the following endpoints:
 
--   `**/api/agent**`: uses the LangChain agent
--   `**/api/spam_ham_classifier**`: uses the spam/ham classifier to classify text
--   `**/api/bio_search**`: returns relevant information about Mykhailo Ivasiuk's biography.
+-   **`/api/agent**`\*\*: uses the LangChain agent
+-   **`**/api/spam_ham_classifier**`**: uses the spam/ham classifier to classify text
+-   **`**/api/bio_search**`**: returns relevant information about Mykhailo Ivasiuk's biography.
 
-Additionally, there is an `**/external/mcp**` endpoint available for MCP tools.
+Additionally, there is an **`/external/mcp`** endpoint available for MCP tools.
 
 For the frontend I used the [React](https://react.dev) library to build a minimalistic user interface
 
-A Telegram chatbot is also available, which interacts with the FastAPI server by making requests to the `**/api/agent**` endpoint.
+A Telegram chatbot is also available, which interacts with the FastAPI server by making requests to the **`/api/agent`** endpoint.
 
 The [Gradio](https://www.gradio.app) package is used to provide a demo application for the project.
 
@@ -66,7 +66,7 @@ The .env.example file shows the required variables, including:
 
 -   OPENAI_API_KEY: a key from [OpenAI developer platform](https://platform.openai.com/docs/overview) used to access OpenAI models.
 -   OPENAI_MODEL: Chat model name (**default**: `gpt-4o-mini`)
--   CLASSIFIER_MODEL: HuggingFace path for the classifier model (**default:**: `my pretrained spam-ham-classifier`)
+-   CLASSIFIER_MODEL: HuggingFace path for the classifier model (**default:**: my pretrained `spam-ham-classifier`)
 -   EMBED_MODEL: Name of the OpenAI embedding model used for RAG (**default**: `text-embedding-ada-002`)
 -   FILE_PATH: Path to the text corpus (**default**: `data/student_bio.txt`)
 -   APP_BACKEND_HOST/APP_BACKEND_PORT: Network address for the backend server, you can keep them by default
