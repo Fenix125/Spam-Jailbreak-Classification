@@ -5,21 +5,23 @@
 ## Description
 
 > This project was created during a two‑month ML/Python Summer Camp at **[Unidatalab](https://unidatalab.com)**.
-> Thanks to the company for the provided opportunity. Also I would like to give credit to
+> Thanks to the company for the provided opportunity. I would also like to give credit to
 > my mentor **[Maksym Komar](https://www.linkedin.com/in/maksym-komar/)** for his support and guidance throughout this journey.
 
-Spam/Jailbreak Classification project shows the gained knowledge of Machine Learning applied to practice
-It was made in 3 steps:
+The Spam/Jailbreak Classification project demonstrates the application of Machine Learning to practice.
+
+It was completed in three major steps:
 
 ### Step 1. Fine-Tuning a Base BERT Model
 
-Here a [BERT Model](https://huggingface.co/google-bert/bert-base-uncased) was fine-tuned using [transformers](https://huggingface.co/docs/transformers/index) on a previously filtered dataset.
-The dataset consists of two merged datasets:
+In this step, a [BERT Model](https://huggingface.co/google-bert/bert-base-uncased) was fine-tuned using [transformers](https://huggingface.co/docs/transformers/index) on a preprocessed dataset.
+
+The dataset is a combination of two datasets:
 
 -   [190K+ Spam | Ham Email Dataset for Classification](https://www.kaggle.com/datasets/meruvulikith/190k-spam-ham-email-dataset-for-classification)
 -   [Emails for spam or ham classification (Trec 2007)](https://www.kaggle.com/datasets/bayes2003/emails-for-spam-or-ham-classification-trec-2007)
 
-The data preprocessing included removal of duplicate and null values. The merged dataset was splitted into:
+Preprocessing steps included the removal of duplicate and null values. The merged dataset was then split into:
 
 -   Training set (72%)
 -   Validation set (18%)
@@ -27,30 +29,28 @@ The data preprocessing included removal of duplicate and null values. The merged
 
 ### Step 2. Wrapping the Fine-Tuned Model into an Agentic pipeline
 
-Here the [LangChain](https://www.langchain.com) framework was used to build an agent with two tools:
+Using the [LangChain](https://www.langchain.com) framework, I built an agent with two tools:
 
-1. **classify_spam_ham** tool uses the trained bert model predict whether a text is spam or ham, returns result to agent
-2. **search_info_about_Mykhailo_Ivasiuk** this is a RAG tool that retrieves my biography information from the provided document
+1. `**classify_spam_ham**`: a tool that uses the trained BERT model to classify text as spam or ham.
+2. `**search_info_about_Mykhailo_Ivasiuk**`: a Retrieval-Augmented Generation (RAG) tool that retrieves biographical information about Mykhailo Ivasiuk from a provided document.
 
-The agent has memory, which helps him remember previous conversations.
-
-The LangChain agent is also accessible as a terminal application
+The agent also has memory, allowing it to remember previous conversations. Moreover it is accessible as a terminal application.
 
 ### Step 3. Software implementation
 
-Here the [FastAPI](https://fastapi.tiangolo.com) framework was used to create a microservice architecture with 3 endpoints:
+I used the [FastAPI](https://fastapi.tiangolo.com) framework to create a microservice architecture with the following endpoints:
 
--   /api/agent: uses LangChain agent
--   /api/spam_ham_classifier: uses the spam/ham classifier to classify text
--   /api/bio_search: returns relevant information about student's biography (mine)
+-   `**/api/agent**`: uses the LangChain agent
+-   `**/api/spam_ham_classifier**`: uses the spam/ham classifier to classify text
+-   `**/api/bio_search**`: returns relevant information about Mykhailo Ivasiuk's biography.
 
-Also the /external/mcp endpoint is available for mcp tools
+Additionally, there is an `**/external/mcp**` endpoint available for MCP tools.
 
-The [React](https://react.dev) library for web and native user interfaces was used for minimalistic user interface
+For the frontend I used the [React](https://react.dev) library to build a minimalistic user interface
 
-Also there exists an telegram chatbot which uses the FastAPI server to make requests to /api/agent endpoint
+A Telegram chatbot is also available, which interacts with the FastAPI server by making requests to the `**/api/agent**` endpoint.
 
-The [Gradio](https://www.gradio.app) open-source Python package was used to deliver a demo application that will be available to other users
+The [Gradio](https://www.gradio.app) package is used to provide a demo application for the project.
 
 ## Installing / Getting started
 
@@ -58,22 +58,20 @@ The easiest way to run the project locally is via the provided Makefile or docke
 
 > [!IMPORTANT]
 > You will need Python and Node JS (for the front‑end) if not using Docker.
+> Also make sure to set up envoronment variables in order for the project to work.
 
 ### Initial Configuration
 
-> [!WARNING]
-> You will need to set up envoronment variables in order for the project to work locally
-
 The .env.example file shows the required variables, including:
 
--   OPENAI_API_KEY: API key of [OpenAI developer platform](https://platform.openai.com/docs/overview), used for access to open ai models
--   OPENAI_MODEL: Chat model name (**default**: gpt-4o-mini)
--   CLASSIFIER_MODEL: HuggingFace path for classifier model (**default:**: my pretrained spam-ham-classifier)
--   EMBED_MODEL: Name of the OpenAI embedding model used for RAG (**default**: text-embedding-ada-002)
--   FILE_PATH: Path to the text corpus (**default**: data/student_bio.txt)
--   APP_BACKEND_HOST/APP_BACKEND_PORT: Network address for the backend server, you can keep the by default
--   APP_FRONTEND_HOST/APP_FRONTEND_PORT: Network address for the React front‑end, you can keep the by default
--   RUN_MODE: Set to web (default) to start the HTTP server or cli to run in the command line
+-   OPENAI_API_KEY: a key from [OpenAI developer platform](https://platform.openai.com/docs/overview) used to access OpenAI models.
+-   OPENAI_MODEL: Chat model name (**default**: `gpt-4o-mini`)
+-   CLASSIFIER_MODEL: HuggingFace path for the classifier model (**default:**: `my pretrained spam-ham-classifier`)
+-   EMBED_MODEL: Name of the OpenAI embedding model used for RAG (**default**: `text-embedding-ada-002`)
+-   FILE_PATH: Path to the text corpus (**default**: `data/student_bio.txt`)
+-   APP_BACKEND_HOST/APP_BACKEND_PORT: Network address for the backend server, you can keep them by default
+-   APP_FRONTEND_HOST/APP_FRONTEND_PORT: Network address for the React front‑end, you can keep them by default
+-   RUN_MODE: Set to `web`(default) to start the HTTP server or `cli` to run in the command line
 -   TELEGRAM_BOT_TOKEN: Token for the Telegram bot (optional)
 
 ### Clone the repository
@@ -85,8 +83,8 @@ cd Spam-Jailbreak-Classification
 
 ### Makefile
 
-Use the Makefile to create a virtual environment, install Python requirements and fetch front‑end packages.
-This also ensures a .env file exists
+Use the **Makefile** to create a virtual environment, install Python requirements and fetch front‑end packages.
+This also ensures a `.env` file exists
 
 ```shell
 make install
@@ -95,27 +93,29 @@ make install
 **_Other useful commands:_**
 
 ```shell
-make backend #starts FastAPI backend server
-make frontend #starts React frontend server
-make cli #starts terminal application
-make bot #starts telegram bot
-make gradio #runs web demo using Gradio
+make backend    # starts the FastAPI backend server
+make frontend   # starts the React frontend server
+make cli        # starts the terminal application
+make bot        # starts the Telegram bot
+make gradio     # runs the web demo using Gradio
 ```
 
 ### Docker
 
+To build and start the project using Docker, run:
+
 ```shell
-docker compose up -d --build  #builds the images, created and starts compose stack
+docker compose up -d --build  # builds the images, creates and starts compose stack
 ```
 
 **_tips:_**
 
 ```shell
-docker compose stop #stop running containers
-docker compose start #used to restart containers that were previously created and are currently in a stopped state
+docker compose stop     # stop running containers
+docker compose start    # restart containers that were previously stopped
 
-docker compose down #stops and removes containers
-docker compose up #build, create and start containers
+docker compose down     # stop and remove containers
+docker compose up       # build, create and start containers
 ```
 
 ## Developing
@@ -124,7 +124,7 @@ To develop the project further, clone the repository and install dependencies as
 
 ## Features
 
--   Chat agent - built with LangChain and OpenAI’s models that routes your query to either the classifier or the RAG tool
+-   Chat agent - built with LangChain and OpenAI's models that routes your query to either the classifier or the RAG tool
     -   Message classification - send any piece of text and receive a label of spam or ham
     -   Retrieval‑augmented answering – ask a question about the biography of Mykhailo Ivasiuk and get the most
         relevant info from the corpus
@@ -149,5 +149,5 @@ To develop the project further, clone the repository and install dependencies as
 
 ## Licensing
 
-"The code in this project is licensed under the Apache License 2.0. See LICENSE.
-This distribution also includes a NOTICE file with attribution information."
+The code in this project is licensed under the Apache License 2.0. See LICENSE.
+This distribution also includes a NOTICE file with attribution information.
