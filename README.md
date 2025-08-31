@@ -85,7 +85,7 @@ The `.env.example` file shows the required variables, including:
 
 -   `OPENAI_API_KEY`: a key from [OpenAI developer platform](https://platform.openai.com/docs/overview) used to access OpenAI models.
 -   `OPENAI_MODEL`: Chat model name (**default**: `gpt-4o-mini`)
--   `CLASSIFIER_MODEL`: HuggingFace path for the classifier model (**default:**: my pretrained `spam-ham-classifier`)
+-   `CLASSIFIER_MODEL`: HuggingFace path for the classifier model (**default:**: my pretrained `Fenix125/bert-spam-ham-classifier`)
 -   `EMBED_MODEL`: Name of the OpenAI embedding model used for RAG (**default**: `text-embedding-ada-002`)
 -   `FILE_PATH`: Path to the text corpus (**default**: `data/student_bio.txt`)
 -   `APP_BACKEND_HOST/APP_BACKEND_PORT`: Network address for the backend server, you can keep them by default
