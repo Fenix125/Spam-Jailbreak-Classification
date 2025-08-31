@@ -34,17 +34,17 @@ The model was trained with parameters:
 -   Epochs: 3
 -   Weight decay: 0.01
 
-## Results
+**Results**:
 
 Test set accuracy: **95.73%** (best checkpoint).
 
 Model on the [Hugging Face Hub](https://huggingface.co):
 
-[Fenix125/bert-spam-ham-classifier](https://huggingface.co/Fenix125/bert-spam-ham-classifier)
+-   [Fenix125/bert-spam-ham-classifier](https://huggingface.co/Fenix125/bert-spam-ham-classifier)
 
 Implementation details:
 
-[main.ipynb](https://github.com/Fenix125/Spam-Jailbreak-Classification/blob/e89342adc6d0c2020755ad06c9192c72b178166b/main.ipynb)
+-   [main.ipynb](https://github.com/Fenix125/Spam-Jailbreak-Classification/blob/e89342adc6d0c2020755ad06c9192c72b178166b/main.ipynb)
 
 ### Step 2. Wrapping the Fine-Tuned Model into an Agentic pipeline
 
@@ -161,10 +161,13 @@ To develop the project further, clone the repository and install dependencies as
 
 3.  Frameworks/Libraries:
     -   [Transformers](https://huggingface.co/docs/transformers/index)
+    -   [Hugging Face Hub](https://huggingface.co)
     -   [LangChain](https://www.langchain.com)
     -   [FastAPI](https://fastapi.tiangolo.com)
     -   [React](https://react.dev)
     -   [Gradio](https://www.gradio.app)
+4.  Published model:
+    -   [Fenix125/bert-spam-ham-classifier](https://huggingface.co/Fenix125/bert-spam-ham-classifier)
 
 ## Licensing
 
