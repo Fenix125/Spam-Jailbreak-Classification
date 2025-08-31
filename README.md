@@ -27,6 +27,25 @@ Preprocessing steps included the removal of duplicate and null values. The merge
 -   Validation set (18%)
 -   Test set (10%)
 
+The model was trained with parameters:
+
+-   Learning rate: 1e-4
+-   Batch size: 32
+-   Epochs: 3
+-   Weight decay: 0.01
+
+## Results
+
+Test set accuracy: **95.73%** (best checkpoint).
+
+Model on the [Hugging Face Hub](https://huggingface.co):
+
+[Fenix125/bert-spam-ham-classifier](https://huggingface.co/Fenix125/bert-spam-ham-classifier)
+
+Implementation details:
+
+[main.ipynb](https://github.com/Fenix125/Spam-Jailbreak-Classification/blob/e89342adc6d0c2020755ad06c9192c72b178166b/main.ipynb)
+
 ### Step 2. Wrapping the Fine-Tuned Model into an Agentic pipeline
 
 Using the [LangChain](https://www.langchain.com) framework, I built an agent with two tools:
